@@ -1,0 +1,23 @@
+name: Test DWH struct
+
+on: push
+
+jobs:
+  test-consistency:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up python
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.9
+
+      - name: Test consistency
+        run: |
+          pip install sqlalchemy psycopg2-binary
+          python .github/utils/struct_test.py
